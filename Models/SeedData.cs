@@ -10,28 +10,28 @@ namespace MagicMirror.Models
     {
         public static void Initialize(IServiceProvider serviceProvider)
         {
-            using(var context = new GoalContext(
+            using (var context = new GoalContext(
                 serviceProvider.GetRequiredService<
                     DbContextOptions<GoalContext>>()))
             {
-                //Look for and goals.
-                //if (context.Goal.Any())
-                //{
-                //    return; //Db has been seeded
-                //}
+               // Look for and goals.
+                if (context.Goal.Any())
+                    {
+                        return; //Db has been seeded
+                    }
 
                 context.Goal.AddRange(
                     new Goal
                     {
-                        Title = "Skateboard"
+                        Title = "You can add tasks by pressing create new"
                     },
                     new Goal
                     {
-                        Title = "Snowboard",
+                        Title = "And delete them with the delete button",
                     },
                     new Goal
                     {
-                        Title = "Surfboard",
+                        Title = "Hope this helps!",
                     }
                 );
                 context.SaveChanges();
