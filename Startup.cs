@@ -1,15 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MagicMirror.Data;
 using Microsoft.EntityFrameworkCore;
+using MagicMirror.Models;
+using Microsoft.AspNetCore.Identity;
+using MagicMirror.Infrastructure;
 
 namespace MagicMirror
 {
@@ -27,8 +25,24 @@ namespace MagicMirror
         {
             services.AddControllersWithViews();
 
+            services.AddTransient<IPasswordValidator<AppUser>,
+                CustomPasswordValidator>();
+            services.AddTransient<IUserValidator<AppUser>,
+                CustomUserValidator>();
+
             services.AddDbContext<GoalContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("GoalContext")));
+            
+            services.AddIdentity<AppUser, IdentityRole>(opts =>
+            {
+                //opts.User.AllowedUserNameCharacters = "qwertyuiopasdfghjklzxcvbnm";
+                opts.Password.RequiredLength = 6;
+                opts.Password.RequireNonAlphanumeric = false;
+                opts.Password.RequireLowercase = false;
+                opts.Password.RequireUppercase = false;
+                opts.Password.RequireDigit = false;
+            }).AddEntityFrameworkStores<GoalContext>()
+                .AddDefaultTokenProviders();
         }
 
         //This method gets called by the runtime.Use this method to configure the HTTP request pipeline.
@@ -44,12 +58,13 @@ namespace MagicMirror
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
-
             app.UseAuthorization();
+            app.UseAuthentication();
+            app.UseDeveloperExceptionPage();
 
             app.UseEndpoints(endpoints =>
             {
