@@ -8,6 +8,5 @@ namespace MagicMirror.Data
         public GoalContext (DbContextOptions<GoalContext> options)
             : base(options) { }
         public DbSet<Goal> Goal { get; set; }
-        public DbSet<AppUser> Users { get; set; }
     }
 }

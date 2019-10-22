@@ -30,6 +30,8 @@ namespace MagicMirror
             services.AddTransient<IUserValidator<AppUser>,
                 CustomUserValidator>();
 
+            services.AddDbContext<AppIdentityDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("MirrorIdentity")));
             services.AddDbContext<GoalContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("GoalContext")));
             
@@ -41,7 +43,7 @@ namespace MagicMirror
                 opts.Password.RequireLowercase = false;
                 opts.Password.RequireUppercase = false;
                 opts.Password.RequireDigit = false;
-            }).AddEntityFrameworkStores<GoalContext>()
+            }).AddEntityFrameworkStores<AppIdentityDbContext>()
                 .AddDefaultTokenProviders();
         }
 

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MagicMirror.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MagicMirror.Controllers
 {
@@ -18,10 +19,15 @@ namespace MagicMirror.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+        [Authorize]
+        public ViewResult Index() =>
+            View(new Dictionary<string, object>
+            { ["Placeholder"] = "Placeholder" });
+
+        //public IActionResult Index()
+        //{
+        //    return View();
+        //}
 
         public IActionResult Privacy()
         {

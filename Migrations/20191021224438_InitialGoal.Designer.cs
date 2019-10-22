@@ -3,14 +3,16 @@ using MagicMirror.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MagicMirror.Migrations
 {
     [DbContext(typeof(GoalContext))]
-    partial class GoalContextModelSnapshot : ModelSnapshot
+    [Migration("20191021224438_InitialGoal")]
+    partial class InitialGoal
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

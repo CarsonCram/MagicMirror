@@ -5,14 +5,14 @@ using System.Threading.Tasks;
 
 namespace MagicMirror.Controllers
 {
-    public class IdentityController : Controller
+    public class AdminController : Controller
     {
         private UserManager<AppUser> userManager;
         private IUserValidator<AppUser> userValidator;
         private IPasswordValidator<AppUser> passwordValidator;
         private IPasswordHasher<AppUser> passwordHasher;
 
-        public IdentityController(UserManager<AppUser> userMgr,
+        public AdminController(UserManager<AppUser> userMgr,
             IUserValidator<AppUser> userValid,
             IPasswordValidator<AppUser> passvalid,
             IPasswordHasher<AppUser> passwordHash)
@@ -22,7 +22,7 @@ namespace MagicMirror.Controllers
             passwordValidator = passvalid;
             passwordHasher = passwordHash;
         }
-        
+
         public ViewResult Index() => View(userManager.Users);
         public ViewResult Create() => View();
 
@@ -71,7 +71,7 @@ namespace MagicMirror.Controllers
             }
             return View("Index", userManager.Users);
         }
-        
+
         public async Task<IActionResult> Edit(string id)
         {
             AppUser user = await userManager.FindByIdAsync(id);
