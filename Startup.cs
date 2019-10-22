@@ -67,6 +67,8 @@ namespace MagicMirror
             app.UseAuthorization();
             app.UseAuthentication();
             app.UseDeveloperExceptionPage();
+            AppIdentityDbContext.CreateAdminAccount(app.ApplicationServices,
+                Configuration).Wait();
 
             app.UseEndpoints(endpoints =>
             {
@@ -77,3 +79,4 @@ namespace MagicMirror
         }
     }
 }
+                        
