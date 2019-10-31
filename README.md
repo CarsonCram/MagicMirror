@@ -2,6 +2,8 @@
 
 My goal for this project is to create an easy to use and simplistic task list to load onto a raspberry pi and use on a Smart Mirror
 
+If you to check out the build so far you can see it here. https://mirrormirror19.azurewebsites.net/
+
 <h2>User Story</h2>
 
 <strong>As a</strong> Goal-oriented morning-person
