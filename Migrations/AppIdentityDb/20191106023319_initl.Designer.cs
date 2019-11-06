@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MagicMirror.Migrations.AppIdentityDb
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    [Migration("20191021224242_Initial")]
-    partial class Initial
+    [Migration("20191106023319_initl")]
+    partial class initl
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

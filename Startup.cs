@@ -31,9 +31,9 @@ namespace MagicMirror
                 CustomUserValidator>();
 
             services.AddDbContext<AppIdentityDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("MirrorIdentity")));
+                options.UseSqlServer(Configuration["Data:MirrorIdentity:ConnectionString"]));
             services.AddDbContext<GoalContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("GoalContext")));
+                options.UseSqlServer(Configuration["Data:GoalContext:ConnectionString"]));
             
             services.AddIdentity<AppUser, IdentityRole>(opts =>
             {
@@ -67,14 +67,14 @@ namespace MagicMirror
             app.UseAuthorization();
             app.UseAuthentication();
             app.UseDeveloperExceptionPage();
-            AppIdentityDbContext.CreateAdminAccount(app.ApplicationServices,
-                Configuration).Wait();
+            //AppIdentityDbContext.CreateAdminAccount(app.ApplicationServices,
+            //    Configuration).Wait();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Goals1}/{action=Index}/{id?}");
+                    pattern: "{controller=Account}/{action=Login}/{id?}");
             });
         }
     }

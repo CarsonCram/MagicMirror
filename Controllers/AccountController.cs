@@ -34,7 +34,7 @@ namespace MagicMirror.Controllers
         {
             if (ModelState.IsValid)
             {
-                AppUser user = await userManager.FindByEmailAsync(details.Email);
+                AppUser user = await userManager.FindByNameAsync(details.Name);
                 if (user != null)
                 {
                     await signInManager.SignOutAsync();
@@ -43,13 +43,38 @@ namespace MagicMirror.Controllers
                             user, details.Password, false, false);
                     if (result.Succeeded)
                     {
-                        return Redirect(returnUrl ?? "/");
+                        return RedirectToAction("Index", "Goals1");
                     }
                 }
-                ModelState.AddModelError(nameof(LoginModel.Email),
+                ModelState.AddModelError(nameof(LoginModel.Name),
                     "Invalid user or password");
             }
             return View(details);
+        }
+
+        public ViewResult Create() => View();
+
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                AppUser user = new AppUser
+                {
+                    UserName = model.Name
+                };
+                IdentityResult result
+                    = await userManager.CreateAsync(user, model.Password);
+
+                if (result.Succeeded)
+                    return RedirectToAction("Index", "Goal");
+                else
+                    foreach (IdentityError error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+            }
+            return View(model);
         }
 
         [Authorize]

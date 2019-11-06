@@ -13,7 +13,7 @@ namespace MagicMirror.Controllers
         private RoleManager<IdentityRole> roleManager;
         private UserManager<AppUser> userManager;
 
-        public RoleAdminController(RoleManager<IdentityRole> roleMgr
+        public RoleAdminController(RoleManager<IdentityRole> roleMgr,
             UserManager<AppUser> userMgr)
         {
             roleManager = roleMgr;

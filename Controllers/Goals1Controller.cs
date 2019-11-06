@@ -22,6 +22,7 @@ namespace MagicMirror.Controllers
         // GET: Goals1
         public async Task<IActionResult> Index()
         {
+            //return View(await _context.Goal.Where(m => m.User = userName));
             return View(await _context.Goal.ToListAsync());
         }
 
@@ -50,11 +51,9 @@ namespace MagicMirror.Controllers
         }
 
         // POST: Goals1/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title")] Goal goal)
+        public async Task<IActionResult> Create([Bind("Id,User,Title")] Goal goal)
         {
             if (ModelState.IsValid)
             {

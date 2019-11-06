@@ -14,8 +14,8 @@ namespace MagicMirror.Models
     public class LoginModel
     {
         [Required]
-        [UIHint("email")]
-        public string Email { get; set; }
+        [UIHint("name")]
+        public string Name { get; set; }
 
         [Required]
         [UIHint("password")]

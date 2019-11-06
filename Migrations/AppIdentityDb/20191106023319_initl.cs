@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MagicMirror.Migrations.AppIdentityDb
 {
-    public partial class Initial : Migration
+    public partial class initl : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
