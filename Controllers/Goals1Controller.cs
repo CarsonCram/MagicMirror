@@ -53,7 +53,7 @@ namespace MagicMirror.Controllers
         // POST: Goals1/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,User,Title")] Goal goal)
+        public async Task<IActionResult> Create([Bind("Id,UserName,Title")] Goal goal)
         {
             if (ModelState.IsValid)
             {

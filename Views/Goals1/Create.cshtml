@@ -5,14 +5,12 @@
 }
 
 <h1>Create</h1>
-
-<h4>Goal</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="UserName" value="User.Identity.Name" />
+            <input type="hidden" asp-for="UserName" name="UserName" value="@User.Identity.Name" />
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />

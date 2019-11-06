@@ -45,6 +45,8 @@ namespace MagicMirror
                 opts.Password.RequireDigit = false;
             }).AddEntityFrameworkStores<AppIdentityDbContext>()
                 .AddDefaultTokenProviders();
+
+            services.AddMvc(options => options.EnableEndpointRouting = false);
         }
 
         //This method gets called by the runtime.Use this method to configure the HTTP request pipeline.
@@ -70,11 +72,20 @@ namespace MagicMirror
             //AppIdentityDbContext.CreateAdminAccount(app.ApplicationServices,
             //    Configuration).Wait();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Account}/{action=Login}/{id?}");
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllerRoute(
+            //        name: "default",
+            //        pattern: "{controller=Account}/{action=Login}/{id?}");
+            //});
+
+            app.UseMvc(routes => {
+                routes.MapRoute(
+                    name: null,
+                    template: "",
+                    defaults: new { controller = "Account", action = "Login" }
+                );
+                routes.MapRoute(name: null, template: "{controller}/{action}/{id?}");
             });
         }
     }

@@ -20,41 +20,33 @@ namespace MagicMirror.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult Login(string returnUrl)
-        {
-            ViewBag.returnUrl = returnUrl;
-            return View();
-        }
+        public ViewResult Login() => View();
+
+        [AllowAnonymous]
+        public ViewResult Create() => View();
 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginModel details, 
-            string returnUrl)
+        public async Task<IActionResult> Login(LoginModel details)
         {
-            if (ModelState.IsValid)
+            AppUser user = await userManager.FindByNameAsync(details.Name);
+            if (user != null)
             {
-                AppUser user = await userManager.FindByNameAsync(details.Name);
-                if (user != null)
+                await signInManager.SignOutAsync();
+                Microsoft.AspNetCore.Identity.SignInResult result =
+                    await signInManager.PasswordSignInAsync(
+                        user, details.Password, true, true);
+                if (result.Succeeded)
                 {
-                    await signInManager.SignOutAsync();
-                    Microsoft.AspNetCore.Identity.SignInResult result =
-                        await signInManager.PasswordSignInAsync(
-                            user, details.Password, false, false);
-                    if (result.Succeeded)
-                    {
-                        return RedirectToAction("Index", "Goals1");
-                    }
+                    return RedirectToAction("Index", "Goals1");
                 }
-                ModelState.AddModelError(nameof(LoginModel.Name),
-                    "Invalid user or password");
             }
-            return View(details);
+            return RedirectToAction("Create", "Account");
         }
 
-        public ViewResult Create() => View();
-
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Create(CreateModel model)
         {
             if (ModelState.IsValid)
@@ -63,11 +55,12 @@ namespace MagicMirror.Controllers
                 {
                     UserName = model.Name
                 };
+
                 IdentityResult result
                     = await userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
-                    return RedirectToAction("Index", "Goal");
+                    return RedirectToAction("Login");
                 else
                     foreach (IdentityError error in result.Errors)
                     {
@@ -81,7 +74,7 @@ namespace MagicMirror.Controllers
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login");
         }
 
         [AllowAnonymous]
