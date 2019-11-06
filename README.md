@@ -1,5 +1,13 @@
 <h2>TaskListProject</h2>
 
+https://reallygoodproject.azurewebsites.net/Admin/Index
+
+<h1>Goals</h1>
+
+-CRUD functionality<br>
+-Identity<br>
+-RBAC
+
 <h1>Entrance Criteria</h1>
 
 |TestNo.|Test Description|Test Method|
@@ -47,3 +55,27 @@
 |4|Passed|1.0|11/3/2019|WebsiteLayout|Inspection|
 |4.1|Passed|1.0|11/3/2019|--|Inspection|
 |4.2|Passed|1.0|11/3/2019|--|Inspection|
+
+<h1>Technologies</h1>
+
+-Google Maps Api<br>
+-JS<br>
+-Different CSS stylesheets
+
+<h1>Lessons Learned</h1>
+
+-focus<br>
+-make realistic expectations<br>
+-focus on functionality over presentation
+
+<h1>Where I was lucky</h1>
+
+-Bootswatch was able to give me a nice looking page without me having to think about it tooo much
+
+<h1>Where I was unlucky</h1>
+
+-I had frequent issues with github and acidentally deleting my entire project
+
+<h1>Future changes</h1>
+
+-Add tasklists for users to choose between
